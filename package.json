@@ -18,11 +18,13 @@
   },
   "homepage": "https://github.com/tsergey88/NodeJS_Global_Mentoring#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.2",
     "@types/node": "^12.12.17",
+    "@types/uuid": "^3.4.6",
     "ts-node": "^8.5.4",
     "tslint": "^5.20.1",
     "typescript": "^3.7.3"

@@ -1,4 +1,4 @@
-export interface User {
+export interface UserDTO {
   id: string;
   login: string;
   password: string;
@@ -6,14 +6,14 @@ export interface User {
   isDeleted: boolean;
 };
 
-export interface WebUser {
+export interface WebUserDTO {
   id: string;
   login: string;
   age: number;
   isDeleted: boolean;
 };
 
-export interface AddedUser {
+export interface AddedUserDTO {
   login: string;
   password: string;
   age: number;

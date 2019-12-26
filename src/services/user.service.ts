@@ -1,7 +1,7 @@
 import uuid from 'uuid/v4';
 
 import { UserDTO, WebUserDTO, AddedUserDTO } from '../dto/user.dto';
-import { sortASC, getWebUserDTO } from '../utils';
+import { sortDESC, getWebUserDTO } from '../utils';
 
 const UsersCollection: UserDTO[] = [
   {
@@ -26,32 +26,34 @@ interface QueryParams {
 }
 
 export default class UserService {
-  public getUserById = (id: string): WebUserDTO => {
+  public getUserById = (id: string): Promise<WebUserDTO> => {
     const user = UsersCollection.find(item => item.id === id);
 
     if (user) {
-      return getWebUserDTO(user);
+      const response = getWebUserDTO(user);
+      return Promise.resolve(response);
     }
 
-    throw new Error(`User with id: ${id} not found`);
+    return Promise.reject(`User with id: ${id} not found`);
   }
 
-  public getAllUsers = (query?: QueryParams): WebUserDTO[] => {
-    if (query.login || query.limit) {
-      const { login = "", limit = 1000 } = query;
+  public getAllUsers = (query?: QueryParams): Promise<WebUserDTO[]> => {
+    let response = UsersCollection.slice();
 
-      //TODO: change for empty login or emty limit
-      return UsersCollection
-      .filter(user => user.login.toLocaleLowerCase().includes(login.toLocaleLowerCase()))
-      .sort((a, b) => sortASC(a.login, b.login))
-      .slice(0, limit)
-      .map(getWebUserDTO);
+    if (query.login) {
+      response = response
+        .filter(user => user.login.toLocaleLowerCase().includes(query.login.toLocaleLowerCase()))
+        .sort((a, b) => sortDESC(a.login, b.login))
     }
 
-    return UsersCollection.map(getWebUserDTO);
+    if (query.limit) {
+      response = response.slice(0, query.limit);
+    }
+
+    return Promise.resolve(response.map(getWebUserDTO));
   };
 
-  public addUser = (user: AddedUserDTO): WebUserDTO => {
+  public addUser = (user: AddedUserDTO): Promise<WebUserDTO> => {
     const { login, password, age } = user;
 
     const existedUser = UsersCollection.find(item => item.login === login);
@@ -62,34 +64,37 @@ export default class UserService {
       const newUser = { id, login, password, age, isDeleted };
 
       UsersCollection.push(newUser);
+      const response = getWebUserDTO(newUser);
 
-      return getWebUserDTO(newUser);
+      return Promise.resolve(response);
     }
 
-    throw new Error(`User with login: ${login} already exists`);
+    return Promise.reject(`User with login: ${login} already exists`);
   }
 
-  public removeUserById = (id: string): WebUserDTO[] => {
+  public removeUserById = (id: string): Promise<WebUserDTO[]> => {
     const user = UsersCollection.find(item => item.id === id);
 
     if (user) {
       user.isDeleted = true;
+      const response = UsersCollection.map(getWebUserDTO);
 
-      return UsersCollection.map(getWebUserDTO);
+      return Promise.resolve(response);
     }
 
-    throw new Error(`User with id: ${id} not found`);
+    return Promise.reject(`User with id: ${id} not found`);
   }
 
-  public updateUserById = (id: string, body: UserDTO): WebUserDTO => {
+  public updateUserById = (id: string, body: UserDTO): Promise<WebUserDTO> => {
     let user = UsersCollection.find(item => item.id === id);
 
     if (user) {
       user = { ...user, ...body };
+      const response = getWebUserDTO(user);
 
-      return getWebUserDTO(user);
+      return Promise.resolve(response);
     }
 
-    throw new Error(`User with id: ${id} not found`);
+    return Promise.reject(`User with id: ${id} not found`);
   }
 }

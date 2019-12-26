@@ -1,6 +1,6 @@
 import { WebUserDTO, UserDTO } from '../dto/user.dto';
 
-export const sortASC = (a: string, b: string) => {
+export const sortDESC = (a: string, b: string) => {
   if (a > b) {
     return 1;
   }

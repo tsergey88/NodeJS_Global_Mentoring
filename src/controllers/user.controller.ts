@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { WebUserDTO } from '../dto/user.dto';
+import { WebUserDTO } from '../interfaces';
 import UserService from '../services/user.service';
 
 export default class UserController {

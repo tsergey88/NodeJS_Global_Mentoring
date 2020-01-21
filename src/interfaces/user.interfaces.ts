@@ -3,14 +3,12 @@ export interface UserDTO {
   login: string;
   password: string;
   age: number;
-  isDeleted: boolean;
 };
 
 export interface WebUserDTO {
   id: string;
   login: string;
   age: number;
-  isDeleted: boolean;
 };
 
 export interface AddedUserDTO {

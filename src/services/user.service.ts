@@ -1,7 +1,9 @@
-import uuid from 'uuid/v4';
+// import uuid from 'uuid/v4';
+import { Op } from 'sequelize';
 
-import { UserDTO, WebUserDTO, AddedUserDTO } from '../dto/user.dto';
-import { sortDESC, getWebUserDTO } from '../utils';
+import { User } from '../models/user.model';
+import { UserDTO, WebUserDTO, AddedUserDTO, IQueryParams } from '../interfaces';
+import { getWebUserDTO } from '../utils';
 
 const UsersCollection: UserDTO[] = [
   {
@@ -20,11 +22,6 @@ const UsersCollection: UserDTO[] = [
   }
 ];
 
-interface QueryParams {
-  login: string,
-  limit: number
-}
-
 export default class UserService {
   public getUserById = (id: string): Promise<WebUserDTO> => {
     const user = UsersCollection.find(item => item.id === id);
@@ -37,39 +34,43 @@ export default class UserService {
     return Promise.reject(`User with id: ${id} not found`);
   }
 
-  public getAllUsers = (query?: QueryParams): Promise<WebUserDTO[]> => {
-    let response = UsersCollection.slice();
+  public getAllUsers = async (query?: IQueryParams): Promise<WebUserDTO[]> => {
+      const limit = query.limit || 100;
+      const where = {};
+      const order = [];
 
-    if (query.login) {
-      response = response
-        .filter(user => user.login.toLocaleLowerCase().includes(query.login.toLocaleLowerCase()))
-        .sort((a, b) => sortDESC(a.login, b.login))
-    }
+      if (query.login) {
+        where.login = {
+          [Op.substring]: query.login
+        };
+        order.push(['login', 'DESC']);
+      }      
 
-    if (query.limit) {
-      response = response.slice(0, query.limit);
-    }
-
-    return Promise.resolve(response.map(getWebUserDTO));
+      let data = await User.findAll({
+        attributes: ['id', 'login', 'age'],
+        where,
+        order,
+        limit
+      });
+  
+      return data
   };
 
-  public addUser = (user: AddedUserDTO): Promise<WebUserDTO> => {
+  public addUser = async (user: AddedUserDTO): Promise<WebUserDTO> => {
     const { login, password, age } = user;
+    const existedUser = await User.findAll({
+      where: {
+        login: {
+          [Op.substring]: login
+        }
+      }
+    });
 
-    const existedUser = UsersCollection.find(item => item.login === login);
+    if (existedUser.length) { return Promise.reject(`User with login: '${login}' already exists`); }
+    
+    const newUser = await User.create({ login, password, age });
 
-    if (!existedUser) {
-      const id = uuid();
-      const isDeleted = false;
-      const newUser = { id, login, password, age, isDeleted };
-
-      UsersCollection.push(newUser);
-      const response = getWebUserDTO(newUser);
-
-      return Promise.resolve(response);
-    }
-
-    return Promise.reject(`User with login: ${login} already exists`);
+    return newUser;
   }
 
   public removeUserById = (id: string): Promise<WebUserDTO[]> => {

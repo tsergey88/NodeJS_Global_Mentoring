@@ -1,4 +1,4 @@
-import { WebUserDTO, UserDTO } from '../dto/user.dto';
+import { WebUserDTO, UserDTO } from '../interfaces';
 
 export const sortDESC = (a: string, b: string) => {
   if (a > b) {

@@ -1,7 +1,7 @@
 export interface dbParams {
-  userName: string,
-  password: string
-  dbHost: string,
-  dbPort: string,
-  dbName: string
+  id?: number,
+  attributes?: { exclude: string[] },
+  where?: {},
+  limit?: number
+  order?: string[][]
 }

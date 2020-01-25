@@ -12,6 +12,5 @@ export const errorHandler = ((err: HttpError, req: Request, res: Response, next:
   console.log('Error status: ', status);
   console.log('Message: ', message);
 
-  res.status(status);
-  res.json({ status, message });
+  res.status(status).json({ status, message });
 });

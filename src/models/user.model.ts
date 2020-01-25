@@ -1,7 +1,5 @@
 import Joi from '@hapi/joi';
-import { DataTypes } from 'sequelize';
-
-import { db } from '../db';
+import { Table, Column, Model, DataType } from 'sequelize-typescript';
 
 export const userValidateModel = Joi.object({
   login: Joi
@@ -21,17 +19,26 @@ export const userValidateModel = Joi.object({
     .max(130)
 });
 
-export const User = db.define('User', {
-  login: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  password: {
-    type: DataTypes.STRING
-  },
-  age: {
-    type: DataTypes.INTEGER
-  }
-}, {
+@Table({
   timestamps: false
-});
+})
+export class User extends Model<User> {
+ 
+  @Column({
+    type: DataType.STRING(200),
+    comment: 'User`s login'
+  })
+  login: string;
+ 
+  @Column({
+    type: DataType.STRING(100),
+    comment: 'User`s password'
+  })
+  password: string;
+
+  @Column({
+    type: DataType.INTEGER,
+    comment: 'User`s age'
+  })
+  age: number;
+}

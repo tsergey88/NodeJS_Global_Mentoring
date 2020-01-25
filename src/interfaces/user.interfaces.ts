@@ -6,7 +6,7 @@ export interface UserDTO {
 };
 
 export interface WebUserDTO {
-  id: string;
+  id?: string;
   login: string;
   age: number;
 };

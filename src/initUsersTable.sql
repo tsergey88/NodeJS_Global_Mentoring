@@ -1,0 +1,1 @@
+INSERT INTO "Users" ("id","login","password","age") VALUES (DEFAULT,'Elena','123456',34),(DEFAULT,'Nikolay','654321',22),(DEFAULT,'Mikhail','qwerty',28),(DEFAULT,'Max','aqws123',27),(DEFAULT,'Anrey','',30) RETURNING *

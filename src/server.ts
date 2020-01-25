@@ -1,25 +1,13 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
-import { ConnectionError } from 'sequelize';
 
-import { db } from './db';
+import { db } from './datasources';
 import userRoutes from './routes/user.routes';
 import { errorHandler } from './middlewares/errorHandler.middleware';
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
-// const dbUserName = process.env.dbUserName || "";
-// const dbPassword = process.env.dbPassword || "";
-// const dbHost = process.env.dbHost || "";
-// const dbPort = process.env.dbPort || 5432;
-// const dbName = process.env.dbName || "NodeJS";
-
-// const db = new Sequelize(`postgres://${dbUserName}:${dbPassword}@${dbHost}:${dbPort}/${dbName}`);
-
-db.authenticate()
-    .then(() => console.log('Connection has been established successfully.'))
-    .catch((error: ConnectionError) => console.error('Unable to connect to the database:', error));
 
 const app = express();
 
@@ -27,6 +15,16 @@ app.use(bodyParser.json());
 app.use('/users', userRoutes);
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Express server has started on ${PORT} port`);
+app.listen(PORT, async () => {
+  try {
+    await db.authenticate();
+    console.log('\x1b[32m%s\x1b[0m', 'Connection has been established successfully.');
+
+    await db.sync({ alter: true });
+    console.log('\x1b[32m%s\x1b[0m', 'All tables was synchronized.');    
+  } catch (e) {
+    console.error('\x1b[31m%s\x1b[0m', 'Unable to connect to the database:', e);
+  } 
+
+  console.log('\x1b[34m%s\x1b[0m', `Express server has started on ${PORT} port`);
 });

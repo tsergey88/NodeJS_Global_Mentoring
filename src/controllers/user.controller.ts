@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 
 import { WebUserDTO } from '../interfaces';
-import UserService from '../services/user.service';
+import { UserService } from '../services';
 
-export default class UserController {
+export class UserController {
   private userService: UserService = new UserService();
 
   public getUserById = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const id = parseInt(req.params.id, 10);
 
     try {
       const user: WebUserDTO = await this.userService.getUserById(id);
@@ -39,7 +39,7 @@ export default class UserController {
   };
 
   public removeUserById = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const id = parseInt(req.params.id, 10);
 
     try {
       const users: WebUserDTO[] = await this.userService.removeUserById(id);
@@ -51,7 +51,7 @@ export default class UserController {
 
   public updateUserById = async (req: Request, res: Response) => {
     const { body } = req;
-    const { id } = req.params;
+    const id = parseInt(req.params.id, 10);
 
     try {
       const user: WebUserDTO = await this.userService.updateUserById(id, body);

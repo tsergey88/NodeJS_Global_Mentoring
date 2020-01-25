@@ -2,7 +2,7 @@ import { Router } from 'express';
 import createError from 'http-errors';
 import { createValidator } from 'express-joi-validation'
 
-import UserController from '../controllers/user.controller';
+import { UserController } from '../controllers';
 import { userValidateModel } from '../models/user.model';
 
 const userRouter = Router();

@@ -19,5 +19,3 @@ export const db =  new Sequelize({
   storage: `postgres://${dbUserName}:${dbPassword}@${dbHost}:${dbPort}/${dbName}`,
   models: [User]
 });
-
-export const dbInit = (entities: Array<Object>) => User.bulkCreate(entities);

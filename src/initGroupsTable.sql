@@ -1,0 +1,1 @@
+INSERT INTO "Groups" ("id","name","permissions") VALUES (DEFAULT,'Admin',Array['READ','WRITE','DELETE','SHARE','UPLOAD_FILES']), (DEFAULT,'User',Array['READ','SHARE']), (DEFAULT,'Manager',Array['READ','WRITE','SHARE','UPLOAD_FILES']) RETURNING *

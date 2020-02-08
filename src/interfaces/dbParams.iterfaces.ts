@@ -1,5 +1,6 @@
 export interface dbParams {
-  id?: number,
+  id?: string | number,
+  name?: string,
   attributes?: { exclude: string[] },
   where?: {},
   limit?: number

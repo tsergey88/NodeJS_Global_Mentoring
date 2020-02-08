@@ -5,7 +5,7 @@ import { createValidator } from 'express-joi-validation'
 import { UserController } from '../controllers';
 import { userValidateModel } from '../models/user.model';
 
-const userRouter = Router();
+export const userRouter = Router();
 const userController: UserController = new UserController();
 const validator = createValidator({passError: true});
 

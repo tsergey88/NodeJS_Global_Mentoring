@@ -9,20 +9,21 @@ export class UserService {
       return Promise.reject(`User with id '${id}' not found`);
     }
 
-    return user;    
+    return user;
   }
 
   public getAllUsers = async (query?: IQueryParams): Promise<WebUserDTO[]> => await userRepository.getAll(query);
 
+  // TODO: replace by findOrCreate method.
   public addUser = async (user: AddedUserDTO): Promise<WebUserDTO> => {
     const { login, password, age } = user;
 
     const existedUser = await userRepository.getAll({ login });
 
-    if (existedUser.length) { 
-      return Promise.reject(`User with login '${login}' already exists`); 
+    if (existedUser.length) {
+      return Promise.reject(`User with login '${login}' already exists`);
     }
-    
+
     return await userRepository.create({ login, password, age });
   }
 

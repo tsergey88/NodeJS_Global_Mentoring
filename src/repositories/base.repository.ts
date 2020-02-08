@@ -7,7 +7,7 @@ export class BaseRepository {
 
   entityClass: any = null;
 
-  public getAll(params: dbParams) {    
+  public getAll(params?: dbParams) {    
     return this.entityClass.findAll(params);
   }
 

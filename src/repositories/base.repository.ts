@@ -1,3 +1,5 @@
+import { Sequelize } from 'sequelize-typescript';
+
 import { dbParams } from '../interfaces';
 
 export class BaseRepository {
@@ -20,7 +22,7 @@ export class BaseRepository {
   }
 
   public bulkCreate(entities: Array<Object>) {
-    return this.entityClass.bulkCreate(entities);
+    return this.entityClass.sequelize.transaction( (t: Sequelize) => this.entityClass.bulkCreate(entities, { transaction: t }));
   }
 
   public remove(params: dbParams) {
@@ -29,5 +31,9 @@ export class BaseRepository {
 
   public update(body: Object, params: dbParams) {
     return this.entityClass.update(body, params);
+  }
+
+  public findOrCreate(entity: Object) {
+    return this.entityClass.findOrCreate(entity);
   }
 }

@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
 import { db } from './datasources';
-import { userRouter, groupRouter } from './routes';
+import { userRouter, groupRouter, userGroupRouter } from './routes';
 import { errorHandler } from './middlewares/errorHandler.middleware';
 
 dotenv.config();
@@ -14,6 +14,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use('/users', userRouter);
 app.use('/groups', groupRouter);
+app.use('/user-group', userGroupRouter);
 app.use(errorHandler);
 
 app.listen(PORT, async () => {

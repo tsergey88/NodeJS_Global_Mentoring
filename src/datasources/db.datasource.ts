@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 import dotenv from 'dotenv';
 
-import { User, Group } from '../models';
+import { User, Group, UserGroup } from '../models';
 
 dotenv.config();
 
@@ -17,5 +17,5 @@ export const db =  new Sequelize({
   username: dbUserName,
   password: dbPassword,
   storage: `postgres://${dbUserName}:${dbPassword}@${dbHost}:${dbPort}/${dbName}`,
-  models: [User, Group]
+  models: [User, Group, UserGroup]
 });

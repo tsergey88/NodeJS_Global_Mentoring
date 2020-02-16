@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import { HttpError } from 'http-errors';
 
 export const errorHandler = ((err: HttpError, req: Request, res: Response, next: NextFunction) => {
-  let { status, message } = err;
+  let status = err.status || 500;
+  let message = err.message || err || 'Internal Server Error';
 
   if (err && err.error && err.error.isJoi) {
     status = 400;

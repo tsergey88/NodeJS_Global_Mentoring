@@ -1,7 +1,8 @@
 import Joi from '@hapi/joi';
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, BelongsToMany } from 'sequelize-typescript';
 
 import { Permissions } from '../interfaces';
+import { User, UserGroup } from './index';
 
 export const groupValidateModel = Joi.object({
 	name: Joi
@@ -27,5 +28,8 @@ export class Group extends Model<Group> {
 		type: DataType.ARRAY(DataType.STRING),
 		comment: 'User`s password'
 	})
-	permissions: Array<Permissions>;
+  permissions: Array<Permissions>;
+  
+  @BelongsToMany(() => User, () => UserGroup, 'groupId', 'userId')
+  users: User[];
 }

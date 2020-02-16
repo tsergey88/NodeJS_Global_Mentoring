@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import createError from 'http-errors';
-import { createValidator } from 'express-joi-validation'
+import { createValidator } from 'express-joi-validation';
 
 import { GroupController } from '../controllers';
 import { groupValidateModel } from '../models';

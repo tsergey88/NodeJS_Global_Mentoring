@@ -2,8 +2,7 @@ import { Op } from 'sequelize';
 
 import { BaseRepository } from './base.repository';
 import { Group } from '../models';
-import { dbParams } from '../interfaces';
-import { IQueryParams } from '../interfaces';
+import { dbParams, GroupDTO, IQueryParams } from '../interfaces';
 
 const LIMIT = 100;
 
@@ -27,6 +26,14 @@ class GroupRepository extends BaseRepository {
     }
     
     return this.entityClass.findAll(params);
+  }
+
+  public findOrCreate(body: GroupDTO) {
+    const entity = {
+      where: { name: body.name },
+      defaults: { ...body }
+    }
+    return this.entityClass.findOrCreate(entity);
   }
 };
 

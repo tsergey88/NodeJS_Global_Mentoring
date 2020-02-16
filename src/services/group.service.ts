@@ -1,3 +1,5 @@
+import createError from 'http-errors';
+
 import { groupRepository } from '../repositories';
 import { GroupDTO, IQueryParams } from 'src/interfaces';
 
@@ -8,23 +10,20 @@ export class GroupService {
     const group = await groupRepository.getById({ where: { id } });
 
     if (!group) {
-      return Promise.reject(`Group with id '${id}' not found`);
+      throw createError(404, `Group with id '${id}' not found!`);
     }
 
     return group;
   }
+  
+  public addGroup = async (body: GroupDTO): Promise<GroupDTO> => {
+    const [ group, isJustCreated ] = await groupRepository.findOrCreate(body);
 
-  // TODO: replace by findOrCreate method.
-  public addGroup = async (group: GroupDTO): Promise<GroupDTO> => {
-    const { name, permissions } = group;
-
-    const existedGroup = await groupRepository.getAll({ name });
-    
-    if (existedGroup.length) {
-      return Promise.reject(`Group with name '${name}' already exists`);
+    if (!isJustCreated) {
+      throw createError(500, `Group with login '${body.name}' already exists!`);
     }
 
-    return await groupRepository.create({ name, permissions });
+    return group;
   }
 
   public removeGroupById = async (id: number | string): Promise<GroupDTO[]> => {
@@ -32,11 +31,21 @@ export class GroupService {
       where: { id }
     }
 
-    return await groupRepository.remove(params);
+    const isRemoved = await groupRepository.remove(params);
+
+    if (!isRemoved) {
+      throw createError(404, `Group with id '${id}' not found!`);
+    }
+
+    return isRemoved;
   }
 
   public updateGroupById = async (id: number | string, body: GroupDTO): Promise<GroupDTO> => {
-    await groupRepository.update(body, { where: { id } });
+    const [ isUpdated ] = await groupRepository.update(body, { where: { id } });
+
+    if (!isUpdated) {
+      throw createError(404, `Group with id '${id}' not found!`);
+    }
 
     return await this.getGroupById(id);
   }

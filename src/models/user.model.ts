@@ -1,5 +1,7 @@
 import Joi from '@hapi/joi';
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, BelongsToMany } from 'sequelize-typescript';
+
+import { Group, UserGroup } from './index';
 
 export const userValidateModel = Joi.object({
   login: Joi
@@ -41,4 +43,7 @@ export class User extends Model<User> {
     comment: 'User`s age'
   })
   age: number;
+
+  @BelongsToMany(() => Group, () => UserGroup, 'userId', 'groupId')
+  groups: Group[];
 }

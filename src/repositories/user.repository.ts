@@ -2,8 +2,7 @@ import { Op } from 'sequelize';
 
 import { BaseRepository } from './base.repository';
 import { User } from '../models';
-import { dbParams } from '../interfaces';
-import { IQueryParams } from '../interfaces';
+import { dbParams, AddedUserDTO, IQueryParams } from '../interfaces';
 
 const LIMIT = 100;
 
@@ -40,6 +39,14 @@ class UserRepository extends BaseRepository {
     params.attributes = { exclude: ['password'] };
     
     return this.entityClass.update(body, params);
+  }
+
+  public findOrCreate(body: AddedUserDTO) {
+    const entity = {
+      where: { login: body.login },
+      defaults: { ...body }
+    }
+    return this.entityClass.findOrCreate(entity);
   }
 }
 

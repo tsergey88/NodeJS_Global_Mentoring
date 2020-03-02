@@ -4,13 +4,14 @@ import { createValidator } from 'express-joi-validation';
 
 import { UserController } from '../controllers';
 import { userValidateModel } from '../models/user.model';
+import { consoleLogger } from '../middlewares/consoleLogger.middleware';
 
 export const userRouter = Router();
 const userController: UserController = new UserController();
 const validator = createValidator({passError: true});
 
 userRouter.route('/')
-  .get(userController.getAllUsers)
+  .get(userController.getAllUsers, consoleLogger)
   .post(validator.body(userValidateModel), userController.addUser)
   .all(() => { throw createError(501, 'Not Implemented') });
 

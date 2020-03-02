@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 
 import { WebUserDTO } from '../interfaces';
 import { UserService } from '../services';
+import { winstonLogger } from '../middlewares/winstonLogger.middleware';
 
 export class UserController {
   private userService: UserService = new UserService();
@@ -13,16 +14,29 @@ export class UserController {
       const user: WebUserDTO = await this.userService.getUserById(id);
       res.status(200).json(user);
     } catch (error) {
+      const logInfo = {
+        method: 'UserController.getUserById',
+        params: req.params,
+        message: error.message
+      };
+      winstonLogger.error(JSON.stringify(logInfo));
       next(error);
     }
   };
 
   public getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
     const { query } = req;
+    
     try {
       const users: WebUserDTO[] = await this.userService.getAllUsers(query);
       res.status(200).json(users);
     } catch (error) {
+      const logInfo = {
+        method: 'UserController.getAllUsers',
+        query,
+        message: error.message
+      };
+      winstonLogger.error(JSON.stringify(logInfo));
       next(error);
     }
   };
@@ -34,6 +48,12 @@ export class UserController {
       const user: WebUserDTO = await this.userService.addUser(body);
       res.status(201).json(user);
     } catch (error) {
+      const logInfo = {
+        method: 'UserController.addUser',
+        body,
+        message: error.message
+      };
+      winstonLogger.error(JSON.stringify(logInfo));
       next(error);
     }
   };
@@ -45,6 +65,12 @@ export class UserController {
       const users: WebUserDTO[] = await this.userService.removeUserById(id);
       res.status(201).json(users);
     } catch (error) {
+      const logInfo = {
+        method: 'UserController.removeUserById',
+        params: req.params,
+        message: error.message
+      };
+      winstonLogger.error(JSON.stringify(logInfo));
       next(error);
     }
   };
@@ -57,6 +83,13 @@ export class UserController {
       const user: WebUserDTO = await this.userService.updateUserById(id, body);
       res.status(201).json(user);
     } catch (error) {
+      const logInfo = {
+        method: 'UserController.updateUserById',
+        params: req.params,
+        body,
+        message: error.message
+      };
+      winstonLogger.error(JSON.stringify(logInfo));
       next(error);
     }
   }

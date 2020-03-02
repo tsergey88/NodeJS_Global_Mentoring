@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 import { db } from './datasources';
 import { userRouter, groupRouter, userGroupRouter } from './routes';
 import { errorHandler } from './middlewares/errorHandler.middleware';
+import { consoleLogger } from './middlewares/consoleLogger.middleware';
+import { winstonLogger } from './middlewares/winstonLogger.middleware';
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
@@ -15,18 +17,29 @@ app.use(bodyParser.json());
 app.use('/users', userRouter);
 app.use('/groups', groupRouter);
 app.use('/user-group', userGroupRouter);
+app.use(consoleLogger);
 app.use(errorHandler);
+
+process
+  .on('unhandledRejection', (reason, promise) => {
+    winstonLogger.error(`Unhandled Rejection at: ${promise}, reason: ${reason}`);
+    process.exit(1);
+  })
+  .on('uncaughtException', error => {
+    winstonLogger.error(`Unhandled Exception: ${error}`);
+    process.exit(1);
+  });
 
 app.listen(PORT, async () => {
   try {
     await db.authenticate();
-    console.log('\x1b[32m%s\x1b[0m', 'Connection has been established successfully.');
+    winstonLogger.info('Connection has been established successfully.')
 
     await db.sync({ alter: true });
-    console.log('\x1b[32m%s\x1b[0m', 'All tables was synchronized.');    
+    winstonLogger.info('All tables was synchronized.')  
   } catch (e) {
-    console.error('\x1b[31m%s\x1b[0m', 'Unable to connect to the database:', e);
+    winstonLogger.error(`Unable to connect to the database: ${e}`);
   } 
 
-  console.log('\x1b[34m%s\x1b[0m', `Express server has started on ${PORT} port`);
+  winstonLogger.info(`Express server has started on ${PORT} port`);
 });

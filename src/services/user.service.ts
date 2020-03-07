@@ -1,17 +1,32 @@
 import createError from 'http-errors';
+import jwt, { Secret  } from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config(); 
 
 import { userRepository } from '../repositories';
 import { UserDTO, WebUserDTO, AddedUserDTO, IQueryParams } from '../interfaces';
 
 export class UserService {
   public getUserById = async (id: number): Promise<WebUserDTO> => {
-    const user = await userRepository.getById({ where: { id } });
+    const user = await userRepository.getByParams({ where: { id } });
 
     if (!user) {
       throw createError(404, `User with id '${id}' not found!`);
     }
-
+    
     return user;
+  }
+
+  public getJWT = async (login: string, password: string): Promise<Secret> => {
+    const user = await userRepository.getByParams({ where: { login, password } });
+
+    if (!user) {
+      throw createError(404, 'User not found!');
+    }
+    
+    const token = jwt.sign(user.dataValues, process.env.TOKEN_SECRET);
+
+    return token;
   }
 
   public getAllUsers = async (query?: IQueryParams): Promise<WebUserDTO[]> => await userRepository.getAll(query);

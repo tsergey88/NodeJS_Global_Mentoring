@@ -1,22 +1,24 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 import { db } from './datasources';
-import { userRouter, groupRouter, userGroupRouter } from './routes';
-import { errorHandler } from './middlewares/errorHandler.middleware';
-import { consoleLogger } from './middlewares/consoleLogger.middleware';
-import { winstonLogger } from './middlewares/winstonLogger.middleware';
+import { userRouter, groupRouter, userGroupRouter, loginRouter } from './routes';
+import { errorHandler, consoleLogger, winstonLogger, authenticateJWT } from './middlewares';
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+app.use(cors())
+
 app.use(bodyParser.json());
-app.use('/users', userRouter);
-app.use('/groups', groupRouter);
-app.use('/user-group', userGroupRouter);
+app.use('/users', authenticateJWT, userRouter);
+app.use('/groups', authenticateJWT, groupRouter);
+app.use('/user-group', authenticateJWT, userGroupRouter);
+app.use('/login', loginRouter);
 app.use(consoleLogger);
 app.use(errorHandler);
 

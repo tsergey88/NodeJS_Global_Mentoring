@@ -29,7 +29,7 @@ class UserRepository extends BaseRepository {
     return this.entityClass.findAll(params);
   }
 
-  public getById(params: dbParams) {
+  public getByParams(params: dbParams) {
     params.attributes = { exclude: ['password'] };
 
     return this.entityClass.findOne(params)

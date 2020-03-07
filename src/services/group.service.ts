@@ -7,7 +7,7 @@ export class GroupService {
   public getAllGroups = async (query?: IQueryParams): Promise<GroupDTO[]> => await groupRepository.getAll(query);
 
   public getGroupById = async (id: string | number): Promise<GroupDTO> => {
-    const group = await groupRepository.getById({ where: { id } });
+    const group = await groupRepository.getByParams({ where: { id } });
 
     if (!group) {
       throw createError(404, `Group with id '${id}' not found!`);

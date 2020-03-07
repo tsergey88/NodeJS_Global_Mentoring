@@ -13,7 +13,7 @@ export class BaseRepository {
     return this.entityClass.findAll(params);
   }
 
-  public getById(params: dbParams) {
+  public getByParams(params: dbParams) {
     return this.entityClass.findOne(params)
   }
 

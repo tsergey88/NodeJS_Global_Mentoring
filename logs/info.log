@@ -1,0 +1,160 @@
+{
+  message: 'Connection has been established successfully.',
+  level: 'info',
+  timestamp: '2020-03-07T13:24:44.932Z'
+}
+{
+  message: 'All tables was synchronized.',
+  level: 'info',
+  timestamp: '2020-03-07T13:24:45.257Z'
+}
+{
+  message: 'Express server has started on 8080 port',
+  level: 'info',
+  timestamp: '2020-03-07T13:24:45.258Z'
+}
+{
+  message: '{"method":"UserController.loginUser","message":"Expected \\"payload\\" to be a plain object."}',
+  level: 'error',
+  timestamp: '2020-03-07T13:28:01.096Z'
+}
+{
+  message: 'Connection has been established successfully.',
+  level: 'info',
+  timestamp: '2020-03-07T13:29:47.326Z'
+}
+{
+  message: 'All tables was synchronized.',
+  level: 'info',
+  timestamp: '2020-03-07T13:29:47.682Z'
+}
+{
+  message: 'Express server has started on 8080 port',
+  level: 'info',
+  timestamp: '2020-03-07T13:29:47.686Z'
+}
+{
+  message: '{"method":"UserController.loginUser","message":"Expected \\"payload\\" to be a plain object."}',
+  level: 'error',
+  timestamp: '2020-03-07T13:29:49.464Z'
+}
+{
+  message: 'Connection has been established successfully.',
+  level: 'info',
+  timestamp: '2020-03-07T13:31:06.712Z'
+}
+{
+  message: 'All tables was synchronized.',
+  level: 'info',
+  timestamp: '2020-03-07T13:31:06.965Z'
+}
+{
+  message: 'Express server has started on 8080 port',
+  level: 'info',
+  timestamp: '2020-03-07T13:31:06.966Z'
+}
+{
+  message: 'Connection has been established successfully.',
+  level: 'info',
+  timestamp: '2020-03-07T13:31:42.170Z'
+}
+{
+  message: 'All tables was synchronized.',
+  level: 'info',
+  timestamp: '2020-03-07T13:31:42.438Z'
+}
+{
+  message: 'Express server has started on 8080 port',
+  level: 'info',
+  timestamp: '2020-03-07T13:31:42.450Z'
+}
+{
+  message: 'Connection has been established successfully.',
+  level: 'info',
+  timestamp: '2020-03-07T13:32:04.648Z'
+}
+{
+  message: 'All tables was synchronized.',
+  level: 'info',
+  timestamp: '2020-03-07T13:32:04.967Z'
+}
+{
+  message: 'Express server has started on 8080 port',
+  level: 'info',
+  timestamp: '2020-03-07T13:32:04.968Z'
+}
+{
+  message: 'Connection has been established successfully.',
+  level: 'info',
+  timestamp: '2020-03-07T13:38:36.232Z'
+}
+{
+  message: 'All tables was synchronized.',
+  level: 'info',
+  timestamp: '2020-03-07T13:38:36.563Z'
+}
+{
+  message: 'Express server has started on 8080 port',
+  level: 'info',
+  timestamp: '2020-03-07T13:38:36.564Z'
+}
+{
+  message: 'Connection has been established successfully.',
+  level: 'info',
+  timestamp: '2020-03-07T21:47:20.897Z'
+}
+{
+  message: 'All tables was synchronized.',
+  level: 'info',
+  timestamp: '2020-03-07T21:47:21.222Z'
+}
+{
+  message: 'Express server has started on 8080 port',
+  level: 'info',
+  timestamp: '2020-03-07T21:47:21.223Z'
+}
+{
+  message: 'Connection has been established successfully.',
+  level: 'info',
+  timestamp: '2020-03-07T21:49:12.072Z'
+}
+{
+  message: 'All tables was synchronized.',
+  level: 'info',
+  timestamp: '2020-03-07T21:49:12.605Z'
+}
+{
+  message: 'Express server has started on 8080 port',
+  level: 'info',
+  timestamp: '2020-03-07T21:49:12.606Z'
+}
+{
+  message: 'Connection has been established successfully.',
+  level: 'info',
+  timestamp: '2020-03-07T21:56:29.067Z'
+}
+{
+  message: 'All tables was synchronized.',
+  level: 'info',
+  timestamp: '2020-03-07T21:56:29.316Z'
+}
+{
+  message: 'Express server has started on 8080 port',
+  level: 'info',
+  timestamp: '2020-03-07T21:56:29.317Z'
+}
+{
+  message: 'Connection has been established successfully.',
+  level: 'info',
+  timestamp: '2020-03-07T21:57:27.098Z'
+}
+{
+  message: 'All tables was synchronized.',
+  level: 'info',
+  timestamp: '2020-03-07T21:57:27.314Z'
+}
+{
+  message: 'Express server has started on 8080 port',
+  level: 'info',
+  timestamp: '2020-03-07T21:57:27.315Z'
+}

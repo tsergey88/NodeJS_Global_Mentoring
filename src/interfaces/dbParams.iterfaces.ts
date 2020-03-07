@@ -3,6 +3,6 @@ export interface dbParams {
   name?: string,
   attributes?: { exclude: string[] },
   where?: {},
-  limit?: number
+  limit?: number,
   order?: string[][]
 }

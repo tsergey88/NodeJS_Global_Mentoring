@@ -24,6 +24,22 @@ export class UserController {
     }
   };
 
+  public loginUser = async (req: Request, res: Response, next: NextFunction) => {
+    const { login, password } = req.body; 
+
+    try {
+      const response = await this.userService.getJWT(login, password);
+      res.status(201).json(response);
+    } catch (error) {
+      const logInfo = {
+        method: 'UserController.loginUser',
+        message: error.message
+      };
+      winstonLogger.error(JSON.stringify(logInfo));
+      next(error);
+    }
+  };
+
   public getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
     const { query } = req;
     

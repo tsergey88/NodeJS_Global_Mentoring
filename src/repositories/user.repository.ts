@@ -6,7 +6,7 @@ import { dbParams, AddedUserDTO, IQueryParams } from '../interfaces';
 
 const LIMIT = 100;
 
-class UserRepository extends BaseRepository {
+export class UserRepository extends BaseRepository {
   constructor() {
     super(User)
   }

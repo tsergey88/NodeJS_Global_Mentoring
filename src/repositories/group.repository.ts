@@ -6,7 +6,7 @@ import { dbParams, GroupDTO, IQueryParams } from '../interfaces';
 
 const LIMIT = 100;
 
-class GroupRepository extends BaseRepository {
+export class GroupRepository extends BaseRepository {
   constructor() {
     super(Group)
   }

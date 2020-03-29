@@ -3,10 +3,14 @@ import createError from 'http-errors';
 import { createValidator } from 'express-joi-validation';
 
 import { GroupController } from '../controllers';
+import { GroupService } from '../services';
+import { GroupRepository } from '../repositories';
 import { groupValidateModel } from '../models';
 
 export const groupRouter = Router();
-const groupController: GroupController = new GroupController();
+const groupRepository: GroupRepository = new GroupRepository();
+const groupService: GroupService = new GroupService(groupRepository);
+const groupController: GroupController = new GroupController(groupService);
 const validator = createValidator({passError: true});
 
 groupRouter.route('/')

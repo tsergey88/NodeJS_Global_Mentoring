@@ -3,10 +3,14 @@ import createError from 'http-errors';
 import { createValidator } from 'express-joi-validation';
 
 import { UserController } from '../controllers';
+import { UserService } from '../services';
+import { UserRepository } from '../repositories';
 import { userValidateModel } from '../models/user.model';
 
 export const userRouter = Router();
-const userController: UserController = new UserController();
+const userRepository: UserRepository = new UserRepository();
+const userService: UserService = new UserService(userRepository);
+const userController: UserController = new UserController(userService);
 const validator = createValidator({passError: true});
 
 userRouter.route('/')

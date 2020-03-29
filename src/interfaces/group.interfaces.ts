@@ -1,7 +1,7 @@
 export type Permissions = 'READ' | 'WRITE' | 'DELETE' | 'SHARE' | 'UPLOAD_FILES'; 
 
 export interface GroupDTO {
-  id: string,
+  id: number,
   name: string,
-  permissions: Array<Permissions>
+  permissions: Array<Permissions> | Array<string>
 }

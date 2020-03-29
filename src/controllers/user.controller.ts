@@ -5,7 +5,11 @@ import { UserService } from '../services';
 import { winstonLogger } from '../middlewares/winstonLogger.middleware';
 
 export class UserController {
-  private userService: UserService = new UserService();
+  constructor(service: UserService) {
+    this.userService = service;
+  }
+
+  private userService: UserService = null;
 
   public getUserById = async (req: Request, res: Response, next: NextFunction) => {
     const id = parseInt(req.params.id, 10);

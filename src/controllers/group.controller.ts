@@ -5,7 +5,11 @@ import { GroupDTO } from '../interfaces';
 import { winstonLogger } from '../middlewares/winstonLogger.middleware';
 
 export class GroupController {
-  private groupService: GroupService = new GroupService();
+  constructor(service: GroupService) {
+    this.groupService = service;
+  }
+  
+  private groupService: GroupService = null;
 
   public getAllGroups = async (req: Request, res: Response, next: NextFunction) => {
     try {

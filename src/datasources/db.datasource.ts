@@ -16,6 +16,6 @@ export const db =  new Sequelize({
   dialect: 'postgres',
   username: dbUserName,
   password: dbPassword,
-  storage: `postgres://${dbUserName}:${dbPassword}@${dbHost}:${dbPort}/${dbName}`,
+  storage: `0.0.0.0://${dbUserName}:${dbPassword}@${dbHost}:${dbPort}/${dbName}`,
   models: [User, Group, UserGroup]
 });

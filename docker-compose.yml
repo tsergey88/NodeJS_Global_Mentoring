@@ -1,0 +1,19 @@
+version: '3.2'
+
+services: 
+  db: 
+    image: postgres
+    restart: always
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_DB: ${dbName}
+      POSTGRES_PASSWORD: ${dbPassword}
+    ports:
+      - '${dbPort}:${dbPort}'
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - ${PORT}:${PORT}

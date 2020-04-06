@@ -403,3 +403,30 @@
   level: 'info',
   timestamp: '2020-03-29T16:42:18.464Z'
 }
+{ message: 'Connection has been established successfully.',
+  level: 'info',
+  timestamp: '2020-04-06T18:41:59.753Z' }
+{ message: 'All tables was synchronized.',
+  level: 'info',
+  timestamp: '2020-04-06T18:42:00.342Z' }
+{ message: 'Express server has started on 3000 port',
+  level: 'info',
+  timestamp: '2020-04-06T18:42:00.343Z' }
+{ message: 'Connection has been established successfully.',
+  level: 'info',
+  timestamp: '2020-04-06T18:43:51.727Z' }
+{ message: 'All tables was synchronized.',
+  level: 'info',
+  timestamp: '2020-04-06T18:43:52.500Z' }
+{ message: 'Express server has started on 3000 port',
+  level: 'info',
+  timestamp: '2020-04-06T18:43:52.546Z' }
+{ message: 'Connection has been established successfully.',
+  level: 'info',
+  timestamp: '2020-04-06T18:44:03.582Z' }
+{ message: 'All tables was synchronized.',
+  level: 'info',
+  timestamp: '2020-04-06T18:44:04.282Z' }
+{ message: 'Express server has started on 3000 port',
+  level: 'info',
+  timestamp: '2020-04-06T18:44:04.341Z' }
